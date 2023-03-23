@@ -1,0 +1,449 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: https://recipe-service.herokuapp.com
+    description: Generated server url
+paths:
+  /recipes:
+    get:
+      tags:
+        - recipe-controller
+      operationId: getAllRecipes
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Recipe'
+    put:
+      tags:
+        - recipe-controller
+      operationId: updateRecipe
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Recipe'
+        required: true
+      responses:
+        '200':
+          description: OK
+    post:
+      tags:
+        - recipe-controller
+      operationId: addRecipe
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Recipe'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Recipe'
+  /ratings:
+    put:
+      tags:
+        - rating-controller
+      operationId: updateRating
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rating'
+        required: true
+      responses:
+        '200':
+          description: OK
+    post:
+      tags:
+        - rating-controller
+      operationId: addRating
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rating'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Rating'
+  /prepsteps:
+    put:
+      tags:
+        - prep-step-controller
+      operationId: updatePrepStep
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrepStep'
+        required: true
+      responses:
+        '200':
+          description: OK
+    post:
+      tags:
+        - prep-step-controller
+      operationId: addPrepStep
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrepStep'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PrepStep'
+  /ingredients:
+    put:
+      tags:
+        - ingredient-controller
+      operationId: updateIngredient
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ingredient'
+        required: true
+      responses:
+        '200':
+          description: OK
+    post:
+      tags:
+        - ingredient-controller
+      operationId: addIngredient
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ingredient'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Ingredient'
+  /recipes/{id}:
+    get:
+      tags:
+        - recipe-controller
+      operationId: getRecipe
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Recipe'
+    delete:
+      tags:
+        - recipe-controller
+      operationId: deleteRecipe
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /recipes/category/{category}:
+    get:
+      tags:
+        - recipe-controller
+      operationId: getRecipesByCategory
+      parameters:
+        - name: category
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Recipe'
+  /ratings/{id}:
+    get:
+      tags:
+        - rating-controller
+      operationId: getRating
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Rating'
+    delete:
+      tags:
+        - rating-controller
+      operationId: deleteRating
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /ratings/recipe/{id}:
+    get:
+      tags:
+        - rating-controller
+      operationId: getRatingsByRecipe
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rating'
+  /prepsteps/{id}:
+    get:
+      tags:
+        - prep-step-controller
+      operationId: getPrepStep
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PrepStep'
+    delete:
+      tags:
+        - prep-step-controller
+      operationId: deletePrepStep
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /prepsteps/recipe/{id}:
+    get:
+      tags:
+        - prep-step-controller
+      operationId: getPrepStepsByRecipe
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PrepStep'
+  /load-data:
+    get:
+      tags:
+        - data-loader-controller
+      operationId: loadData
+      responses:
+        '200':
+          description: OK
+  /ingredients/{id}:
+    get:
+      tags:
+        - ingredient-controller
+      operationId: getIngrdient
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Ingredient'
+    delete:
+      tags:
+        - ingredient-controller
+      operationId: deleteIngredient
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+  /ingredients/recipe/{id}:
+    get:
+      tags:
+        - ingredient-controller
+      operationId: getIngredientsByRecipe
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ingredient'
+components:
+  schemas:
+    Ingredient:
+      type: object
+      properties:
+        ingredientId:
+          type: integer
+          format: int32
+        recipeId:
+          type: integer
+          format: int32
+        name:
+          type: string
+        description:
+          type: string
+        amount:
+          type: string
+    PrepStep:
+      type: object
+      properties:
+        prepStepId:
+          type: integer
+          format: int32
+        recipeId:
+          type: integer
+          format: int32
+        stepNumber:
+          type: integer
+          format: int32
+        prepStepText:
+          type: string
+    Rating:
+      type: object
+      properties:
+        ratingId:
+          type: integer
+          format: int32
+        recipeId:
+          type: integer
+          format: int32
+        numStars:
+          type: integer
+          format: int32
+        ratingText:
+          type: string
+        recommended:
+          type: boolean
+    Recipe:
+      type: object
+      properties:
+        recipeId:
+          type: integer
+          format: int32
+        title:
+          type: string
+        category:
+          type: string
+        description:
+          type: string
+        prepTime:
+          type: string
+        cookTime:
+          type: string
+        servings:
+          type: integer
+          format: int32
+        prepSteps:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/PrepStep'
+        ingredients:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Ingredient'
+        ratings:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Rating'
